@@ -2,6 +2,8 @@ import { useState } from "react";
 import emojis from "./emojis";
 import alphabets from "./alphabets";
 import "./App.css";
+import Data from "./components/Data";
+import data from "./data";
 
 function App() {
   const [activeTab, setActiveTab] = useState("encrypt");
@@ -9,21 +11,38 @@ function App() {
   const [selectedKey, setSelectedKey] = useState(0);
   const [inputText, setInputText] = useState("");
   const [outputText, setOutputText] = useState("");
+  let arr = [];
 
   // Encryption function
   const encryptText = (text, key) => {
     if (!text || key === null) return "";
 
-    return text
-      .split("")
-      .map((char) => {
-        const charCode = char.charCodeAt(0);
-        // Use the character's ASCII value plus the key, then map to emoji array
-        const encryptedIndex = (charCode + key) % emojis.length;
-        console.log(emojis[encryptedIndex]);
-        return emojis[encryptedIndex];
-      })
-      .join("");
+    return text.split("").map((char) => {
+      const charCode = char.charCodeAt(0);
+      // Use the character's ASCII value plus the key, then map to emoji array
+      const encryptedIndex = (charCode + key) % emojis.length;
+      // const arr = emojis[encryptedIndex].filter(
+      //   (item) => typeof item === "string" && /\p{Emoji}/u.test(item)
+      // );
+      // arr.push(emojis[encryptedIndex]);;
+      setOutputText(emojis[encryptedIndex]);
+      console.log(outputText);
+      return (
+        <Data
+          img={
+            data[
+              alphabets.indexOf(char) === -1
+                ? alphabets.indexOf("default")
+                : alphabets.indexOf(char)
+            ].img
+          }
+          emoji={emojis[encryptedIndex]}
+          time={key}
+          key={key}
+          alpha={char}
+        />
+      );
+    });
   };
 
   // Decryption function
@@ -163,7 +182,7 @@ function App() {
 
             {/* Input */}
             <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="flex text-sm font-medium text-gray-700 mb-2">
                 {activeTab === "encrypt"
                   ? "Enter text to encrypt:"
                   : "Enter emojis to decrypt:"}

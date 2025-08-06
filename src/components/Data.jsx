@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import data from "../data";
 import emojis from "../emojis";
-import shuffledArray from "../shuffledEmojis";
 
-function Data({ img, onClickShow, time, emojiNum }) {
+function Data({ img, onClickShow, time, emoji, alpha }) {
   const emojisArr = [];
   const [show, setShow] = useState(false);
   useEffect(() => {
@@ -12,7 +11,7 @@ function Data({ img, onClickShow, time, emojiNum }) {
     }, 800 + time * 150);
     if (show) {
       emojisArr.push(shuffledArray[emojiNum]);
-      console.log(emojisArr);
+      //   console.log(emojisArr);
     }
   }, []);
   function onClickShow(value) {
@@ -22,14 +21,19 @@ function Data({ img, onClickShow, time, emojiNum }) {
     <div
       className={
         show
-          ? " w-[1.70rem]  my-[0.24rem] transition  ease-in duration-100 "
-          : " w-[1.70rem]  my-[0.24rem]   "
+          ? " w-[1.70rem]  my-[0.24rem] transition  ease-in duration-100 inline"
+          : " w-[1.70rem]  my-[0.24rem]   inline"
       }
     >
       {!show ? (
-        <img src={img} className={show ? "invisible" : ""} alt="" />
+        <img
+          src={img}
+          cl
+          className={show ? "invisible w-8" : "inline w-8"}
+          alt=""
+        />
       ) : (
-        shuffledArray[emojiNum]
+        emoji
       )}
       {/* <span>{emojiNum}</span> */}
     </div>

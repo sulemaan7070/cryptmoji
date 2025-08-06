@@ -5,7 +5,7 @@ import "./App.css";
 import Data from "./components/Data";
 import data from "./data";
 
-function Appnew() {
+function AppNew() {
   const [activeTab, setActiveTab] = useState("encrypt");
   const [selectedEmoji, setSelectedEmoji] = useState(emojis[0]); // Set first emoji as default
   const [selectedKey, setSelectedKey] = useState(0); // Set first key as default
